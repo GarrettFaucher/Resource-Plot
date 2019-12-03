@@ -26,7 +26,7 @@ string get_filename() {
         cin >> filename;
         return filename;
     } else {
-        return "autumn.jpg";
+        return "data.csv";
     }
 }
 
@@ -35,10 +35,10 @@ string get_filename() {
  * (a) flip, (b) mirror, (c) invert, or (d) exit
  */
 void print_menu() {
-    cout << "Choose a manip option:" << endl <<
-         "(a) flip" << endl <<
-         "(b) mirror" << endl <<
-         "(c) invert" << endl <<
+    cout << "Choose a graph option:" << endl <<
+         "(a) bar" << endl <<
+         "(b) line" << endl <<
+         "(c) scatter" << endl <<
          "(d) exit" << endl;
 }
 
@@ -64,7 +64,7 @@ char get_manip_choice() {
 }
 
 int main() {
-    cout << "Welcome to the image manipulator!" << endl;
+    cout << "Welcome to the data grpaher!" << endl;
     string filename = get_filename();
     cout << "Using file " << filename << "." << endl;
     print_menu();
@@ -73,13 +73,13 @@ int main() {
     string command;
     switch (choice) {
         // Use command-line arguments to pass the filename and manip to the Python file
-        case 'a': command = python + " ../render.py " + filename + " flip";
+        case 'a': command = python + " ../graph.py " + filename + "bar";
             system(command.c_str());
             break;
-        case 'b': command = python + " ../render.py " + filename + " mirror";
+        case 'b': command = python + " ../graph.py " + filename + "line";
             system(command.c_str());
             break;
-        case 'c': command = python + " ../render.py " + filename + " invert";
+        case 'c': command = python + " ../graph.py " + filename + "scatter";
             system(command.c_str());
             break;
     }
