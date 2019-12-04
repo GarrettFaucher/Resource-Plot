@@ -31,25 +31,18 @@ string get_filename() {
 }
 
 /*
- * Prints the main menu of options:
- * (a) flip, (b) mirror, (c) invert, or (d) exit
- */
-void print_menu() {
-    cout << "Choose a graph option:" << endl <<
-         "(a) bar" << endl <<
-         "(b) line" << endl <<
-         "(c) scatter" << endl <<
-         "(d) exit" << endl;
-}
-
-/*
  * Prompts the user for one of the options from the menu.
  * Validates input: makes sure the user enters exactly one character
  * and that it is one of the four valid options.
  * If it isn't valid, keep prompting for input until a valid option
  * is entered.
  */
-char get_manip_choice() {
+char get_plot_choice() {
+    cout << "Choose a graph option:" << endl <<
+         "(a) bar" << endl <<
+         "(b) line" << endl <<
+         "(c) scatter" << endl <<
+         "(d) exit" << endl;
     string option;
     cout << "Select an option: ";
     cin >> option;
@@ -63,23 +56,57 @@ char get_manip_choice() {
     return option[0];
 }
 
+/*
+ * Prompts the user for one of the options from the menu.
+ * Validates input: makes sure the user enters exactly one character
+ * and that it is one of the four valid options.
+ * If it isn't valid, keep prompting for input until a valid option
+ * is entered.
+ */
+string get_color_choice() {
+    cout << "Choose a graph option:" << endl <<
+         "(a) red" << endl <<
+         "(b) green" << endl <<
+         "(c) blue" << endl <<
+         "(d) exit" << endl;
+    string option;
+    cout << "Select an option: ";
+    cin >> option;
+    if(option[0] != 'a' && option[0] != 'b' && option[0] != 'c' && option[0] != 'd') {
+        cin.clear();
+        string junk;
+        getline(cin, junk);
+        cout << "Select an option: ";
+        cin >> option;
+    }
+    if (option[0] == 'a') {
+        return "red";
+    } else if (option[0] == 'b') {
+        return "green";
+    } else if (option[0] == 'c') {
+        return "blue";
+    } else {
+        return "black";
+    }
+}
+
 int main() {
-    cout << "Welcome to the data grpaher!" << endl;
+    cout << "Welcome to the data grapher!" << endl;
     string filename = get_filename();
     cout << "Using file " << filename << "." << endl;
-    print_menu();
-    char choice = get_manip_choice();
+    char plotChoice = get_plot_choice();
+    string colorChoice = " " + get_color_choice();
     cout << "Processing. Go to Python program when it opens. May take a few seconds." << endl;
     string command;
-    switch (choice) {
-        // Use command-line arguments to pass the filename and manip to the Python file
-        case 'a': command = python + " ../graph.py " + filename + "bar";
+    switch (plotChoice) {
+        // Use command-line arguments to pass the filename and plot to the Python file
+        case 'a': command = python + " ../graph.py " + filename + " bar" + colorChoice;
             system(command.c_str());
             break;
-        case 'b': command = python + " ../graph.py " + filename + "line";
+        case 'b': command = python + " ../graph.py " + filename + " line" + colorChoice;
             system(command.c_str());
             break;
-        case 'c': command = python + " ../graph.py " + filename + "scatter";
+        case 'c': command = python + " ../graph.py " + filename + " scatter" + colorChoice;
             system(command.c_str());
             break;
     }
