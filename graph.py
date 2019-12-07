@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt # Install matplotlib using pip
 import matplotlib.animation as animation
-import pandas as pd # Install pandas using pip
+import psutil
 import sys
 
 # Store command line arguments in variables
@@ -11,26 +11,46 @@ color = sys.argv[3] # Color of points to be used
 fig = plt.figure()
 axis1 = fig.add_subplot(1,1,1)
 
+currentTime = 0;
+times = []
+usages = []
+
 def animate(i):
-    data = open('../' + filename, 'r').read()
-    lines = data.split('\n')
-    xs = []
-    ys = []
-    for line in lines:
-        if len(line) > 1:
-            x, y = line.split(',')
-            xs.append(float(x))
-            ys.append(float(y))
-    axis1.clear()
-    axis1.set_ylabel('y')
-    axis1.set_xlabel('x')
-    axis1.set_title('Graphed Data from ' + filename)
-    if type == 'bar':
-        axis1.bar(xs, ys, color=color)
-    elif type == 'line':
-        axis1.plot(xs, ys, color=color)
-    elif type == 'scatter':
-        axis1.scatter(xs, ys, color=color)
+    if (filename != "cpu"):
+        data = open('../' + filename, 'r').read()
+        lines = data.split('\n')
+        xs = []
+        ys = []
+        for line in lines:
+            if len(line) > 1:
+                x, y = line.split(',')
+                xs.append(float(x))
+                ys.append(float(y))
+        axis1.clear()
+        axis1.set_ylabel('y')
+        axis1.set_xlabel('x')
+        axis1.set_title('Graphed Data from ' + filename)
+        if type == 'bar':
+            axis1.bar(xs, ys, color=color)
+        elif type == 'line':
+            axis1.plot(xs, ys, color=color)
+        elif type == 'scatter':
+            axis1.scatter(xs, ys, color=color)
+    else:
+        global times
+        global usages
+        global currentTime
+        times.append(currentTime)
+        usages.append(psutil.cpu_percent())
+        axis1.clear()
+        axis1.set_ylabel('CPU Usage')
+        axis1.set_xlabel('Time')
+        axis1.set_title('CPU Usage vs Time')
+        axis1.plot(times, usages, color=color)
+        currentTime += 1
+        if (currentTime > 100):
+            del times[0]
+            del usages[0]
 
 ani = animation.FuncAnimation(fig, animate, interval=100)
 plt.show()

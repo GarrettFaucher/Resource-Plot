@@ -10,6 +10,34 @@ const string python = "python3";
 #endif
 
 /*
+ * Prompts the user for data graphing choice.
+ * Choosing between csv graph or cpu usage
+ */
+string get_type_choice() {
+    cout << "Do you want to graph a csv or show CPU usage?" << endl <<
+         "(a) csv" << endl <<
+         "(b) cpu usage" << endl <<
+         "(c) exit" << endl;
+    string option;
+    cout << "Select an option: ";
+    cin >> option;
+    if(option[0] != 'a' && option[0] != 'b' && option[0] != 'c') {
+        cin.clear();
+        string junk;
+        getline(cin, junk);
+        cout << "Select an option: ";
+        cin >> option;
+    }
+    if (option[0] == 'a') {
+        return "a";
+    } else if (option[0] == 'b') {
+        return "b";
+    } else {
+        return "";
+    }
+}
+
+/*
  * Prompts the user for a filename.
  * Allow the user to enter nothing to use the default pic (autumn).
  * If the file has extension jpg, jpeg, jpe, or png
@@ -92,24 +120,34 @@ string get_color_choice() {
 
 int main() {
     cout << "Welcome to the data grapher!" << endl;
-    string filename = get_filename();
-    cout << "Using file " << filename << "." << endl;
-    char plotChoice = get_plot_choice();
-    string colorChoice = " " + get_color_choice();
-    cout << "Processing. Go to Python program when it opens. May take a few seconds." << endl;
-    string command;
-    switch (plotChoice) {
-        // Use command-line arguments to pass the filename and plot to the Python file
-        case 'a': command = python + " ../graph.py " + filename + " bar" + colorChoice;
-            system(command.c_str());
-            break;
-        case 'b': command = python + " ../graph.py " + filename + " line" + colorChoice;
-            system(command.c_str());
-            break;
-        case 'c': command = python + " ../graph.py " + filename + " scatter" + colorChoice;
-            system(command.c_str());
-            break;
+    string typeChoice = get_type_choice();
+    if (typeChoice == "csv") {
+        string filename = get_filename();
+        cout << "Using file " << filename << "." << endl;
+        char plotChoice = get_plot_choice();
+        string colorChoice = " " + get_color_choice();
+        cout << "Processing. Go to Python program when it opens. May take a few seconds." << endl;
+        string command;
+        switch (plotChoice) {
+            // Use command-line arguments to pass the filename and plot to the Python file
+            case 'a': command = python + " ../graph.py " + filename + " bar" + colorChoice;
+                system(command.c_str());
+                break;
+            case 'b': command = python + " ../graph.py " + filename + " line" + colorChoice;
+                system(command.c_str());
+                break;
+            case 'c': command = python + " ../graph.py " + filename + " scatter" + colorChoice;
+                system(command.c_str());
+                break;
+        }
+    } else {
+        string colorChoice = " " + get_color_choice();
+        cout << "Processing. Go to Python program when it opens. May take a few seconds." << endl;
+        string command;
+        command = python + " ../graph.py" + " cpu" + " line" + colorChoice;
+        system(command.c_str());
     }
+
 
     return 0;
 }
