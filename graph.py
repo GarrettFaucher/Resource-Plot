@@ -19,9 +19,12 @@ def animate(i):
     for line in lines:
         if len(line) > 1:
             x, y = line.split(',')
-            xs.append(x)
-            ys.append(y)
+            xs.append(float(x))
+            ys.append(float(y))
     axis1.clear()
+    axis1.set_ylabel('y')
+    axis1.set_xlabel('x')
+    axis1.set_title('Graphed Data from ' + filename)
     if type == 'bar':
         axis1.bar(xs, ys, color=color)
     elif type == 'line':
