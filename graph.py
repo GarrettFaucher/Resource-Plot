@@ -43,12 +43,13 @@ def animate(i):
         times.append(currentTime)
         usages.append(psutil.cpu_percent())
         axis1.clear()
-        axis1.set_ylabel('CPU Usage')
-        axis1.set_xlabel('Time')
+        axis1.set_ylabel('CPU Usage (%)')
+        axis1.set_xlabel('Time (seconds)')
         axis1.set_title('CPU Usage vs Time')
+        plt.ylim(0, 100)
         axis1.plot(times, usages, color=color)
-        currentTime += 1
-        if (currentTime > 100):
+        currentTime += 0.1
+        if (currentTime > 10):
             del times[0]
             del usages[0]
 

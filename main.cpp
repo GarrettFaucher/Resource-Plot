@@ -29,9 +29,9 @@ string get_type_choice() {
         cin >> option;
     }
     if (option[0] == 'a') {
-        return "a";
+        return "csv";
     } else if (option[0] == 'b') {
-        return "b";
+        return "cpu";
     } else {
         return "";
     }
@@ -39,10 +39,7 @@ string get_type_choice() {
 
 /*
  * Prompts the user for a filename.
- * Allow the user to enter nothing to use the default pic (autumn).
- * If the file has extension jpg, jpeg, jpe, or png
- * and it exists in the project folder, return it.
- * Otherwise, return the default pic filename.
+ * Allow the user to enter nothing to use the default file data.csv
  */
 string get_filename() {
     cout << "Use a filename (y/n): ";
