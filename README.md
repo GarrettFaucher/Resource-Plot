@@ -11,6 +11,7 @@ This program requires the installation of:
  * C++ compiler
  * Python 3 
  * matplotlib
+ * psutil
 
 matplotlib installation commands for Windows:
         
@@ -19,6 +20,10 @@ matplotlib installation commands for Windows:
 matplotlib installation commands for MacOS/Linux:
 
         pip3 install matplotlib
+
+psutil installation commands for MacOS/Linux:
+
+        pip3 install psutil
 
 # Program Summary
 This program allows for the user to plot CSV data using multiple different graphing methods,
