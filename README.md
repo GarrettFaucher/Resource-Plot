@@ -41,4 +41,4 @@ Next, a new window appears displaying their data or CPU usage.
 
 # Group Members
 * Garrett Faucher
-* Jillian Neff
+* [Jillian Neff](https://github.com/JillianNeff)
